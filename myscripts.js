@@ -4,18 +4,20 @@ function getRndNum(min, max) {
 }
 
 var GuessList = [];
-var ToGuessNum = 5
-while(GuessList.length < ToGuessNum){
-    var Num = getRndNum(1, 50);
-    GuessList.push(Num);
+var TOGUESSLIST = 5
+while(GuessList.length < TOGUESSLIST){
+    var Num = getRndNum(1, 10);
+    if(GuessList.indexOf(Num) === -1){
+        GuessList.push(Num);
+    }
+    
 }
-console.log(GuessList);
-
 alert(GuessList);
-
+console.log(GuessList);
 var h1Element = document.getElementById("secondi-mancanti");
-var Timer = parseInt(prompt("Quanto tempo vorresti avere a disposizione?"))
+var Timer = parseInt(prompt("Di quanto vuoi settare il timer?"))
 h1Element.innerHTML = ("You have " + Timer + " seconds.");
+
 var clock = setInterval(function() {
     if (Timer === 0) {
         clearInterval(clock);
@@ -29,3 +31,24 @@ var clock = setInterval(function() {
 }, 1000)
 
 //Inizio del gioco
+setTimeout(function(){
+    var InputList = [];
+var count = 0;
+while(GuessList.length > InputList.length){
+    var x = parseInt(prompt("Inserisci numero: "));
+    if(InputList.includes(x)){
+        console.log("Numero "+ x +" già inserito.")
+    }else if(GuessList.includes(x) && !InputList.includes(x)){
+        InputList.push(x);
+        console.log("Numeri input: "+InputList);
+        count++;
+    }
+    else if(isNaN(x)){
+        console.log("Numero non valido.")
+    }else{
+        InputList.push("x");
+        console.log("Numero sbagliato.")
+    }
+}
+console.log("Hai indovinato "+count+"numeri: \n" + InputList.join(", "));
+},Timer * 1000)
